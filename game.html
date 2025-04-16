@@ -2,44 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Number Guessing Game</title>
+  <title>F1 Guessing Game</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
+      background: linear-gradient(to right, #111, #222);
+      color: #f1f1f1;
       text-align: center;
-      padding: 50px;
+      padding: 2rem;
     }
-    input, button {
+
+    .game-container {
+      background: #1c1c1c;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+    }
+
+    h1 {
+      color: #e10600; /* Ferrari red */
+      font-family: 'Impact', sans-serif;
+    }
+
+    input[type="number"] {
       padding: 10px;
-      font-size: 1rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      width: 80px;
     }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: #e10600;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
     .result {
-      margin-top: 20px;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .back-link {
+      margin-top: 2rem;
+    }
+
+    a {
+      color: #e10600;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <h1>Number Guessing Game</h1>
-  <p>Guess a number between 1 and 100</p>
-  <input type="number" id="guess" min="1" max="100">
-  <button onclick="checkGuess()">Submit</button>
-  <div class="result" id="resultText"></div>
-  <a href="scratch.html">Back to Scratch Page</a>
+  <div class="game-container">
+    <h1>🏁 F1 Number Guessing Game</h1>
+    <p>Guess a number between 1 and 100 to cross the finish line!</p>
+    <input type="number" id="guessInput" />
+    <button onclick="checkGuess()">Guess</button>
+    <div class="result" id="result"></div>
+
+    <div class="back-link">
+      <a href="scratch.html">⬅ Back to Scratch Page</a>
+    </div>
+  </div>
+
+  <!-- Confetti Script -->
+  <canvas id="confetti-canvas"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
-    const secret = Math.floor(Math.random() * 100) + 1;
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    const resultDiv = document.getElementById('result');
 
     function checkGuess() {
-      const guess = parseInt(document.getElementById('guess').value);
-      const result = document.getElementById('resultText');
-      if (guess === secret) {
-        result.textContent = "🎉 You guessed it!";
-      } else if (guess < secret) {
-        result.textContent = "Too low! Try again.";
-      } else {
-        result.textContent = "Too high! Try again.";
+      const guess = parseInt(document.getElementById('guessInput').value);
+      if (isNaN(guess)) {
+        resultDiv.textContent = "Enter a valid number!";
+        return;
       }
+
+      if (guess === secretNumber) {
+        resultDiv.innerHTML = "<strong>🏎️ You crossed the finish line! Correct guess!</strong>";
+        launchConfetti();
+      } else if (guess < secretNumber) {
+        resultDiv.textContent = "Too slow! Speed up (guess higher)!";
+      } else {
+        resultDiv.textContent = "You're overheating! Brake a bit (guess lower)!";
+      }
+    }
+
+    function launchConfetti() {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 6,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#e10600', '#ffffff']
+        });
+        confetti({
+          particleCount: 6,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#e10600', '#ffffff']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
     }
   </script>
 </body>
