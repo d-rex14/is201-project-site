@@ -100,9 +100,9 @@
         resultDiv.innerHTML = "<strong>🏎️ You crossed the finish line! Correct guess!</strong>";
         launchConfetti();
       } else if (guess < secretNumber) {
-        resultDiv.textContent = "Too slow! Speed up (guess higher)!";
+        resultDiv.textContent = "You're going too slow! (guess higher)";
       } else {
-        resultDiv.textContent = "You're overheating! Brake a bit (guess lower)!";
+        resultDiv.textContent = "You're going too fast! (guess lower)";
       }
     }
 
