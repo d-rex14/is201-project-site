@@ -29,16 +29,27 @@
     <iframe width="560" height="315" src="https://www.youtube.com/watch?v=mAIj1w9TYyQ" title="YouTube video" allowfullscreen></iframe>
 
     <h3>The closest F1 title fight: 2021 World Driver's Championship</h3>
-    <div class="tableauPlaceholder" id="viz1689198546167" style="width: 100%; height: 600px;">
-      <object class="tableauViz" width="100%" height="600" style="display: none;" 
-              data="https://public.tableau.com/app/profile/rafael.centeno/viz/2021F1Season/2021F1SeasonInCharts">
-        <param name="embed_code_version" value="3">
-        <param name="site_root" value="">
-        <param name="name" value="WorldIndicators/GDPpercapita">
-        <param name="tabs" value="no">
-        <param name="toolbar" value="yes">
-      </object>
-    </div>
+ <figure style="margin: 2rem auto; max-width: 1000px;">
+  <tableau-viz 
+    id="tableauViz"
+    src="https://public.tableau.com/views/2021F1Season/2021F1SeasonInCharts"
+    toolbar="bottom"
+    hide-tabs
+    width="100%"
+    height="600px">
+  </tableau-viz>
+</figure>
+    
+    <div style="background-color: #111; padding: 1rem; border-radius: 10px; max-width: 900px; margin: 2rem auto;">
+  <tableau-viz 
+    id="tableauViz"
+    src="https://public.tableau.com/views/2021F1Season/2021F1SeasonInCharts"
+    toolbar="bottom"
+    hide-tabs
+    width="100%"
+    height="600px">
+  </tableau-viz>
+</div>
 
     <h3>Try My Game!</h3>
     <a href="game.html">Play the Number Guessing Game</a>
